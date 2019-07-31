@@ -1,4 +1,4 @@
-version: '2.2'
+version: '3'
 services:
   mongo:
     build: ./mongodb
@@ -7,9 +7,14 @@ services:
     restart: always
     ports:
       - "27017:27017"
+    expose:
+      - "27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 123456
+    networks:
+      - db_nw
+
   flask:
     build: ./flask
     links:
@@ -20,6 +25,12 @@ services:
       - "5000"
     volumes:
       - ../src:/home/web
+    stdin_open: true
+    tty: true
+    networks:
+      - web_nw
+      - db_nw
+
   nginx:
       build: ./nginx
       links:
@@ -27,8 +38,18 @@ services:
       volumes:
         - "./nginx/log:/var/log/nginx"
         - "../:/usr/share/nginx/html"
+      networks:
+        - web_nw
       ports:
-        - "80:80"
-        - "8080:8080"
-        - "443:443"
+        - "8080:80"
+      expose:
+        - "8080" 
       restart: always
+
+networks:
+  web_nw:
+    driver: bridge
+  db_nw:
+    driver: bridge
+
+ 
