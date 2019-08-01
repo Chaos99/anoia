@@ -20,6 +20,8 @@ services:
       - "5000"    
     volumes:
       - ../src:/home/web
+    env_file:
+      - flask/anoia.env
     stdin_open: true
     tty: true
     networks:
