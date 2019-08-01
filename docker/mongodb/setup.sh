@@ -1,8 +1,7 @@
 #!/bin/bash
-mongo <<EOF
+mongo --eval "var ROOTPW='$ROOTPW'; var ADMINPW='$ADMINPW'; var USERNAME='$USERNAME'; var USERPW='$USERPW';"  <<EOF
 use admin;
-db.auth('root', '123456');
-db.createUser({user:'admin',pwd:'admin',roles:[{role:'userAdminAnyDatabase',db:'admin'}]});
-db.createUser({user:'test',pwd:'test',roles:[{role:'readWrite',db:'test'}]});
-db.createCollection("user");
+db.auth('root', ROOTPW);
+db.createUser({user:'admin',pwd:ADMINPW,roles:[{role:'userAdminAnyDatabase',db:'admin'}]});
+db.createUser({user:USERNAME,pwd:USERPW,roles:[{role:'readWrite',db:'test'}]});
 EOF
