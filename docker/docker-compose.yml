@@ -5,10 +5,8 @@ services:
     volumes:
       - "./mongodb/db:/data/db"
     restart: always
-    ports:
-      - "27017:27017"
     expose:
-      - "27017"
+      - "27017"   
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 123456
@@ -17,12 +15,10 @@ services:
 
   flask:
     build: ./flask
-    links:
-      - mongo
-    ports:
-      - "5000:5000"
+    depends_on:
+      - mongo   
     expose:
-      - "5000"
+      - "5000"    
     volumes:
       - ../src:/home/web
     stdin_open: true
@@ -32,18 +28,16 @@ services:
       - db_nw
 
   nginx:
-      build: ./nginx
-      links:
-        - flask
+      build: ./nginx      
       volumes:
         - "./nginx/log:/var/log/nginx"
         - "../:/usr/share/nginx/html"
       networks:
         - web_nw
+      depends_on:
+        - flask
       ports:
-        - "8080:80"
-      expose:
-        - "8080" 
+        - "8080:80"      
       restart: always
 
 networks:
