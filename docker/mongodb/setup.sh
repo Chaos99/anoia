@@ -1,5 +1,5 @@
 #!/bin/bash
-mongo --eval "var ROOTPW='$ROOTPW'; var ADMINPW='$ADMINPW'; var USERNAME='$USERNAME'; var USERPW='$USERPW';"  <<EOF
+mongo --eval "var ROOTPW='$ROOTPW'; var ADMINPW='$ADMINPW'; var USERNAME='$USERNAME'; var USERPW='$USERPW';" --shell  <<EOF
 use admin;
 db.auth('root', ROOTPW);
 db.createUser({user:'admin',pwd:ADMINPW,roles:[{role:'userAdminAnyDatabase',db:'admin'}]});
