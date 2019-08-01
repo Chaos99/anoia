@@ -1,0 +1,5 @@
+docker/mongodb/anoia.env
+docker/mongodb/db/
+docker/nginx/log/
+src/__pycache__/
+src/app/__pycache__/
