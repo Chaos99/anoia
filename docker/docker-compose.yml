@@ -6,7 +6,9 @@ services:
       - "./mongodb/db:/data/db"
     restart: always
     expose:
-      - "27017"       
+      - "27017" 
+    ports:
+      - "27017:27017"      
     env_file:
       - mongodb/anoia.env
     networks:
