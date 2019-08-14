@@ -11,11 +11,9 @@ body{
 table{
 	width:95%;
 	border-collapse:collapse;
-	table-layout:fixed;
 }
 td
 {
-	border: rgba(224, 119, 70, 1) 2px solid;
 	word-wrap:break-word;
 }
 table#close{
@@ -45,7 +43,7 @@ th.name{
 	width:20%;
 }
 th.des{
-	width:40%;
+	width:35%;
 	padding:5px 5px 5px 5px;
 }
 th.date{
@@ -53,6 +51,9 @@ th.date{
 }
 th.pr{
 	width:7%;
+}
+th.comment{
+    width: 15%;
 }
 th.func1{
 	width:6%;
@@ -64,6 +65,7 @@ input[type=submit] {
     width: 20em;  height: 2em;
 }
 ul {
+    color: #FFFFFF;
     list-style-type: none;
     margin: 0;
     padding: 0;
