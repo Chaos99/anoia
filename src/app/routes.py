@@ -44,29 +44,25 @@ def login():
 
 @app.route("/list")  
 def lists ():  
-    #Display the all Tasks  
+    # Display the all Tasks
     todos_l = todos.find()  
     a1="active"  
     return render_template('index.html',a1=a1,todos=todos_l,t=title, h=heading)
 
 
 @app.route("/")
-@app.route("/uncompleted")
-def tasks ():
-    print("load root")
-    # Display the Uncompleted Tasks
-    todos_l = todos.find({"done":"no"})
+def welcome():
+    # redirect to first type of list
+    return redirect("/type/material")
+
+
+@app.route("/type/<string:itype>")
+def tasks (itype):
+    # Display the materials list
+    todos_l = todos.find({"type":itype})
     a2="active"
     dummy = {}
-    return render_template('index.html',a2="active", todos=todos_l, t=title, h=heading)
-
- 
-@app.route("/completed")  
-def completed ():  
-    # Display the Completed Tasks
-    todos_l = todos.find({"done":"yes"})  
-    a3="active"  
-    return render_template('index.html',a3=a3,todos=todos_l,t=title,h=heading)  
+    return render_template('index.html', a2="active", todos=todos_l, t=title, h=heading, type=itype)
 
 
 @app.route("/done")  
@@ -82,16 +78,16 @@ def done ():
     return redirect(redir)  
 
 
-@app.route("/action", methods=['POST'])  
-def action ():  
+@app.route("/action/<string:itype>", methods=['POST'])
+def action (itype):
     # Adding a Task
     desc = request.values.get("desc")
     length = request.values.get("length")
-    width   = request.values.get("width")
+    width = request.values.get("width")
     thick = request.values.get("thickness")
     mat = request.values.get("material")
     comment = request.values.get("comments")
-    todos.insert({"desc":desc, "length":length, "width":width, "thickness":thick, "material":mat, "comments":comment, "status":"in Stock"})
+    todos.insert({"desc":desc, "length":length, "width":width, "thickness":thick, "material":mat, "comments":comment, "status":"in Stock", "type":itype})
     return redirect("/list")  
 
 

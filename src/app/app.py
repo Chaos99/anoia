@@ -16,7 +16,7 @@ from . import routes
 
 
 if __name__ == "__main__":
-    extra_dirs = ['templates', ]
+    extra_dirs = ['./templates', ]
     extra_files = extra_dirs[:]
     for extra_dir in extra_dirs:
         for dirname, dirs, files in walk(extra_dir):
