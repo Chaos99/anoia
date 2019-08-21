@@ -62,7 +62,8 @@ def tasks (itype):
     todos_l = todos.find({"type":itype})
     a2="active"
     dummy = {}
-    return render_template('index.html', a2="active", todos=todos_l, t=title, h=heading, type=itype)
+    template_name = itype + ".html"
+    return render_template(template_name, a2="active", todos=todos_l, t=title, h=heading, type=itype)
 
 
 @app.route("/done")  
@@ -78,8 +79,8 @@ def done ():
     return redirect(redir)  
 
 
-@app.route("/action/<string:itype>", methods=['POST'])
-def action (itype):
+@app.route("/action/material", methods=['POST'])
+def action_mat ():
     # Adding a Task
     desc = request.values.get("desc")
     length = request.values.get("length")
@@ -87,9 +88,20 @@ def action (itype):
     thick = request.values.get("thickness")
     mat = request.values.get("material")
     comment = request.values.get("comments")
-    todos.insert({"desc":desc, "length":length, "width":width, "thickness":thick, "material":mat, "comments":comment, "status":"in Stock", "type":itype})
-    return redirect("/list")  
+    todos.insert({"desc":desc, "length":length, "width":width, "thickness":thick, "material":mat, "comments":comment, "status":"in Stock", "type":"material"})
+    return redirect("/type/material")
 
+@app.route("/action/manual", methods=['POST'])
+def action_man ():
+    # Adding a Task
+    desc = request.values.get("desc")
+    materials = request.values.get("materials")
+    tags = request.values.get("tags")
+    danger = request.values.get("danger")
+    location = request.values.get("loacation")
+    comment = request.values.get("comments")
+    todos.insert({"desc":desc, "materials":materials, "tags":tags, "danger":danger, "locations":location, "comments":comment, "status":"available", "type":"manual"})
+    return redirect("/type/manual")
 
 @app.route("/remove")  
 def remove ():  

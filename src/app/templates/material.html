@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends "layout.html" %}
+
+{% block nav %}
+   {{ super() }}
+{% endblock %}
+   
+{% block list %}
+    <div class="table-responsive-sm">
+        <table id="table_id" class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr id="row">
+                    <th class="status">Status</th>
+                    <th class="desc">Description</th>
+                    <th class="length">Length</th>
+                    <th class="width">Width</th>
+                    <th class="thick">Thickness</th>
+                    <th class="mat">Material</th>
+                    <th class="comment">Comments</th>
+                    <th class="func1">Remove</th>
+                    <th class="func2">Modify</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                <tr class="datas">
+                    <td><input type="image" src="../static/images/yes.png" alt="Submit ME"></td>
+                    <td class="desc">{{todo.desc}}</td>
+                    <td class="length">{{todo.length}}</td>
+                    <td class="width">{{todo.width}}</td>
+                    <td class="thick">{{todo.thickness}}</td>
+                    <td class="mat">{{todo.material}}</td>
+                    <td class="comment">{{todo.comments}}</td>
+                    <td class="func1"><a href="./remove?_id={{ todo['_id'] }}"><button type="submit" class="btn btn-outline-danger">DELETE</button></a></td>
+                    <td class="func1"><a href="./update?_id={{ todo['_id'] }}"><button type="submit" class="btn btn-outline-primary">EDIT</button></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+
+    {% block actionbar %}
+    <form action="/action/{{ type }}" method="POST">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <td><b><big><label>Add an item : </label></big></b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><textarea name="desc" rows="1" cols="20" placeholder="Enter Description here..."></textarea></td>
+                    <td><input type="text" name="length" placeholder="length" /></td>
+                    <td><input type="text" name="width" placeholder="width" /></td>
+                    <td><input type="text" name="thickness" placeholder="thickness" /></td>
+                    <td><input type="text" name="material" placeholder="material" /></td>
+                    <td><input type="text" name="comments" placeholder="comments" /></td>
+                    <td><button type="submit"> Create </button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    {% endblock %}
+
+    {% block details %}
+<div class="card">
+<p>Testtext for details</p>
+</div>
+    {% endblock %}
+
