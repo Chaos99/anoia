@@ -12,9 +12,9 @@
                 <tr id="row">
                     <th class="status">Status</th>
                     <th class="desc">Description</th>
-                    <th class="materials">Materials</th>
-                    <th class="tags">Tags</th>
-                    <th class="danger">Danger</th>
+                    <th class="machine">Machines</th>
+                    <th class="amount">Amount</th>
+                    <th class="material">Materials</th>
                     <th class="location">Location</th>
                     <th class="comment">Comments</th>
                     <th class="func1">Remove</th>
@@ -26,10 +26,10 @@
                 <tr class="datas">
                     <td><input type="image" src="../static/images/yes.png" alt="Submit ME"></td>
                     <td class="desc">{{todo.desc}}</td>
-                    <td class="length">{{todo.materials}}</td>
-                    <td class="width">{{todo.tags}}</td>
-                    <td class="thick">{{todo.danger}}</td>
-                    <td class="mat">{{todo.location}}</td>
+                    <td class="machine">{{todo.machine}}</td>
+                    <td class="amount">{{todo.amount}}</td>
+                    <td class="material">{{todo.material}}</td>
+                    <td class="location">{{todo.location}}</td>
                     <td class="comment">{{todo.comments}}</td>
                     <td class="func1"><a href="./remove?_id={{ todo['_id'] }}"><button type="submit" class="btn btn-outline-danger">DELETE</button></a></td>
                     <td class="func1"><a href="./update?_id={{ todo['_id'] }}"><button type="submit" class="btn btn-outline-primary">EDIT</button></a></td>
@@ -51,9 +51,9 @@
             <tbody>
                 <tr>
                     <td><textarea name="desc" rows="1" cols="20" placeholder="Enter Description here..."></textarea></td>
-                    <td><input type="text" name="materials" placeholder="useful for which materials" /></td>
-                    <td><input type="text" name="tags" placeholder="tags (kind of tool, actions, group)" /></td>
-                    <td><input type="text" name="danger" placeholder="danger level" /></td>
+                    <td><input type="text" name="machine" placeholder="usable for machine(s)" /></td>
+                    <td><input type="text" name="amount" placeholder="available amount" /></td>
+                    <td><input type="text" name="material" placeholder="usable for materials" /></td>
                     <td><input type="text" name="locations" placeholder="location" /></td>
                     <td><input type="text" name="comments" placeholder="comments" /></td>
                     <td><button type="submit"> Create </button></td>
