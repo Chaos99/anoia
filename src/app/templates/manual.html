@@ -24,7 +24,7 @@
         <tbody>
             {% for todo in todos %}
             <tr class="datas">
-                <td><input type="image" src="../static/images/yes.png" alt="Submit ME"></td>
+                <td><input type="image" src="../static/assets/images/yes.png" alt="Submit ME"></td>
                 <td class="desc">{{todo.desc}}</td>
                 <td class="length">{{todo.materials}}</td>
                 <td class="width">{{todo.tags}}</td>
@@ -45,7 +45,7 @@
     <table class="table table-dark">
         <thead>
             <tr>
-                <td><b>label>Add an item : </label></b></td>
+                <td><b><label>Add an item : </label></b></td>
             </tr>
         </thead>
         <tbody>
@@ -65,20 +65,50 @@
 {% endblock %}
 
 {% block details %}
-<div class="card">
+<script type="text/javascript">
+    $('#table_id tbody').on('click', 'tr', function() {
+
+        var data = $('#table_id').dataTable().api().row(this).data();
+
+        var id = document.getElementById("card_columns");
+        while (id.firstChild) {
+            id.removeChild(id.firstChild);
+        }
+
+        const entries = Object.entries(data);
+        for (const [key, value] of entries) {
+            var div1 = document.createElement("div");
+            div1.class = "card";
+            var div2 = document.createElement("div");
+            div2.class = "card-header";
+            div2.innerHTML = `${key}`;
+            var div3 = document.createElement("div");
+            div3.class = "card-body";
+            var div4 = document.createElement("div");
+            div4.class = "card-text";
+            div4.innerHTML = `${value}`;
+
+            div3.appendChild(div4);
+            div1.appendChild(div2);
+            div1.appendChild(div3);
+
+            id.appendChild(div1);
+
+
+            //console.log(`There are ${key} ${value}s`)
+        }
+
+
+    });
+
+</script>
+<div class="card" id="details">
     <div class="card-header">Details:</div>
-    
-<div class="card-body container">
-    <div class="card-columns">
- {% for key, value in sample.items() %} 
-        <div class="card">
-            <div class="card-header">{{key}}:</div>
-            <div class="card-body">
-                <div class="card-text">{{value}}</div>
-            </div>
+
+    <div class="card-body container">
+        <div class="card-columns w-95" id="card_columns">
+
         </div>
-        {% endfor %}
     </div>
 </div>
-    </div>
 {% endblock %}
