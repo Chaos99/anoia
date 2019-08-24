@@ -63,7 +63,7 @@ def tasks (itype):
     a2="active"
     dummy = {}
     template_name = itype + ".html"
-    return render_template(template_name, a2="active", todos=todos_l, t=title, h=heading, type=itype)
+    return render_template(template_name, a2="active", todos=todos_l, t=title, h=heading, type=itype, sample=todos_l[0])
 
 
 @app.route("/done")  
