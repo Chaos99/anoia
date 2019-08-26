@@ -3,9 +3,9 @@ from .config import Config
 from flask_login import LoginManager
 from os import path, walk
 
-
 app = Flask(__name__)
 app.config.from_object(Config)
+
 print("app created")
 
 # login = LoginManager(app)

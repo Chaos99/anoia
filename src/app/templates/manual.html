@@ -10,6 +10,7 @@
     <table id="table_id" class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
             <tr id="row">
+                <th class="id">ID</th>
                 <th class="status">Status</th>
                 <th class="desc">Description</th>
                 <th class="materials">Materials</th>
@@ -24,6 +25,7 @@
         <tbody>
             {% for todo in todos %}
             <tr class="datas">
+                <td class="id">{{ todo._id }}</td>
                 <td><input type="image" src="../static/assets/images/yes.png" alt="Submit ME"></td>
                 <td class="desc">{{todo.desc}}</td>
                 <td class="length">{{todo.materials}}</td>
@@ -68,37 +70,41 @@
 <script type="text/javascript">
     $('#table_id tbody').on('click', 'tr', function() {
 
-        var data = $('#table_id').dataTable().api().row(this).data();
-
+        //console.log(`ID is ${data[0]}`);
         var id = document.getElementById("card_columns");
         while (id.firstChild) {
             id.removeChild(id.firstChild);
         }
+        var selection = $('#table_id').dataTable().api().row(this).data();
+        console.log(`requesting id ${selection[0]}`);
+        $.post('/getdetail', {
+            id: selection[0]
+        }).done(function(response) {
+            console.log(`Retrieved: ${response.name}`);
+            var data = response;
+            const entries = Object.entries(data);
+            for (const [key, value] of entries) {
+                var div1 = document.createElement("div");
+                div1.class = "card border";
+                var div2 = document.createElement("div");
+                div2.class = "card-header";
+                div2.innerHTML = `${key}`;
+                var div3 = document.createElement("div");
+                div3.class = "card-body";
+                var div4 = document.createElement("div");
+                div4.class = "card-text";
+                div4.innerHTML = `${value}`;
 
-        const entries = Object.entries(data);
-        for (const [key, value] of entries) {
-            var div1 = document.createElement("div");
-            div1.class = "card";
-            var div2 = document.createElement("div");
-            div2.class = "card-header";
-            div2.innerHTML = `${key}`;
-            var div3 = document.createElement("div");
-            div3.class = "card-body";
-            var div4 = document.createElement("div");
-            div4.class = "card-text";
-            div4.innerHTML = `${value}`;
+                div3.appendChild(div4);
+                div1.appendChild(div2);
+                div1.appendChild(div3);
 
-            div3.appendChild(div4);
-            div1.appendChild(div2);
-            div1.appendChild(div3);
-
-            id.appendChild(div1);
-
-
-            //console.log(`There are ${key} ${value}s`)
-        }
-
-
+                id.appendChild(div1);
+            }
+        }).fail(function() {
+            console.log(`no or invalid response`);
+            var data = $(selection);
+        });
     });
 
 </script>

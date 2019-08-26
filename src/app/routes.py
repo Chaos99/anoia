@@ -1,6 +1,7 @@
-from flask import render_template, request, redirect, url_for, flash # For flask implementation
-from bson import ObjectId # For ObjectId to work
+from flask import render_template, request, redirect, url_for, flash, jsonify  # For flask implementation
+from bson import ObjectId, json_util # For ObjectId to work
 # from pymongo import MongoClient
+import json
 from app.forms import LoginForm
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash
@@ -119,7 +120,7 @@ def update ():
 
 
 @app.route("/action3", methods=['POST'])  
-def action3 ():  
+def action3():
     # Updating a Task with various references
     name = request.values.get("name")
     desc = request.values.get("desc")
@@ -127,7 +128,18 @@ def action3 ():
     pr = request.values.get("pr")
     id = request.values.get("_id")
     todos.update({"_id": ObjectId(id)}, {'$set': {"name": name, "desc": desc, "date": date, "pr": pr}})
-    return redirect("/")  
+    return redirect("/")
+
+
+@app.route('/getdetail', methods=['POST'])
+def get_detail():
+    print('request for id ' + request.form['id'])
+    task = todos.find({"_id": ObjectId(request.form['id'])})
+    print('sending object ')
+    print(task[0])
+    # serialize with json_util (which understands ObjectID), the de-serialize with default json
+    # flask will then re-serialize with flask.jsonify (to add response header)
+    return json.loads(json_util.dumps(task[0]))
 
 
 @app.route("/search", methods=['GET'])  
