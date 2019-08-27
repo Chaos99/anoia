@@ -88,14 +88,14 @@
             for (const [key, value] of entries) {
                 if (key != "_id") {
                 var div1 = document.createElement("div");
-                div1.class = "card border";
+                div1.className = "card border";
                 var div2 = document.createElement("div");
-                div2.class = "card-header";
+                div2.className = "card-header";
                 div2.innerHTML = `${key}`;
                 var div3 = document.createElement("div");
-                div3.class = "card-body";
+                div3.className = "card-body";
                 var div4 = document.createElement("div");
-                div4.class = "card-text";
+                div4.className = "card-text";
                 div4.innerHTML = `${value}`;
 
                 div3.appendChild(div4);
