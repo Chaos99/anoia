@@ -67,18 +67,6 @@ def tasks (itype):
     return render_template(template_name, a2="active", todos=todos_l, t=title, h=heading, type=itype, sample=todos_l[0])
 
 
-@app.route("/done")  
-def done ():  
-    # Done-or-not ICON
-    onj_id = request.values.get("_id")
-    task = todos.find({"_id": ObjectId(onj_id)})
-    if task[0]["done"] == "yes":
-        todos.update({"_id": ObjectId(onj_id)}, {"$set": {"done": "no"}})
-    else:  
-        todos.update({"_id": ObjectId(onj_id)}, {"$set": {"done": "yes"}})
-    redir=redirect_url()
-    return redirect(redir)  
-
 
 @app.route("/action/material", methods=['POST'])
 def action_mat ():
@@ -112,25 +100,6 @@ def remove ():
     return redirect("/")  
 
 
-@app.route("/update")  
-def update ():  
-    id = request.values.get("_id")
-    task = todos.find({"_id": ObjectId(id)})
-    return render_template('update.html', tasks=task, h=heading, t=title)
-
-
-@app.route("/action3", methods=['POST'])  
-def action3():
-    # Updating a Task with various references
-    name = request.values.get("name")
-    desc = request.values.get("desc")
-    date = request.values.get("date")
-    pr = request.values.get("pr")
-    id = request.values.get("_id")
-    todos.update({"_id": ObjectId(id)}, {'$set': {"name": name, "desc": desc, "date": date, "pr": pr}})
-    return redirect("/")
-
-
 @app.route('/getdetail', methods=['POST'])
 def get_detail():
     print('request for id ' + request.form['id'])
@@ -143,15 +112,3 @@ def get_detail():
     # serialize with json_util (which understands ObjectID), the de-serialize with default json
     # flask will then re-serialize with flask.jsonify (to add response header)
     return json.loads(json_util.dumps(entry))
-
-
-@app.route("/search", methods=['GET'])  
-def search():  
-    # Searching a Task with various references
-    key = request.values.get("key")
-    refer = request.values.get("refer")
-    if key == "_id":
-        todos_l = todos.find({refer: ObjectId(key)})
-    else:  
-        todos_l = todos.find({refer: key})
-    return render_template('searchlist.html', todos=todos_l, t=title, h=heading)

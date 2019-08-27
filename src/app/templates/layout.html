@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-    <title>{{t}}</title>
-    <!-- href="/static/assets/style.css"-->
-    <link rel="stylesheet" type="text/css" href="../static/assets/style.css">
-    <link rel="stylesheet" type="text/css" href="../static/assets/emoji.css">
-    <script src="../static/assets/twemoji.min.js"></script>
-    <script src="../static/assets/emoji.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <title>{{t}}</title>
     <link rel="stylesheet" type="text/css" href="../static/assets/css/jquery.dataTables.css" />
     <link rel="stylesheet" type="text/css" href="../static/assets/css/fixedHeader.dataTables.css" />
     <link rel="stylesheet" type="text/css" href="../static/assets/css/responsive.dataTables.css" />
@@ -19,13 +16,15 @@
     <script type="text/javascript" src="../static/assets/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../static/assets/js/dataTables.fixedHeader.js"></script>
     <script type="text/javascript" src="../static/assets/js/dataTables.responsive.js"></script>
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script-->
+    <script src="../static/assets/js/bootstrap.min.js"></script>
+
     <script>
         $(document).ready(function() {
             var table = $('#table_id').DataTable({
                 scrollX: true,
                 scrollY: true,
-                "columnDefs": [
-                    {
+                "columnDefs": [{
                         "targets": [0],
                         "visible": false,
                         "searchable": false
@@ -39,21 +38,35 @@
         });
 
     </script>
+
 </head>
 
 <body>
-    <h1>ANOIA Makerspace Inventory System</h1>
     {% block nav %}
-    <ul>
-        <li><a href="/list" class="{{ a1 }}">ALL</a></li>
-        <li><a href="/" class="{{ a3 }}">Material</a></li>
-        <li><a href="/type/manual" class="{{ a3 }}">Manual Tools</a>
-        <li><a href="/type/power" class="{{ a3 }}">Power Tools</a>
-        <li><a href="/type/machines" class="{{ a3 }}">Machines</a></li>
-        <li><a href="/type/consumables" class="{{ a3 }}">Consumables</a>
-        <li><a href="/type/stuff" class="{{ a3 }}">Stuff</a>
-        <li><a href="/login" style=float:right>Login</a></li>
-    </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">ANOIA Makerspace Inventory System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/list">All <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/type/material">Material</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/type/manual" class="{{ a3 }}">Manual Tools</a>
+                <li class="nav-item"><a class="nav-link" href="/type/power" class="{{ a3 }}">Power Tools</a>
+                <li class="nav-item"><a class="nav-link" href="/type/machines" class="{{ a3 }}">Machines</a></li>
+                <li class="nav-item"><a class="nav-link" href="/type/consumables" class="{{ a3 }}">Consumables</a>
+                <li class="nav-item"><a class="nav-link" href="/type/stuff" class="{{ a3 }}">Stuff</a>
+                <li class="nav-item"><a class="nav-link" href="/login" style=float:right>Login</a></li>
+
+        </div>
+    </nav>
+
     {% endblock %}
     <hr>
     {% with messages = get_flashed_messages() %}
@@ -67,7 +80,6 @@
     {% endwith %}
 
     {% if todos[0] %}
-    <b><big>Inventory :</big></b>
     {% block list %}
     <div class="table-responsive-sm">
         <table id="table_id" class="table table-striped table-bordered table-hover">
@@ -137,6 +149,30 @@
 
     {% block details %}
     {% endblock %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="confirm-delete-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirm-delete-title">Confirm Deletion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete that entry?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 
 </html>
