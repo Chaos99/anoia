@@ -23,7 +23,18 @@
         $(document).ready(function() {
             var table = $('#table_id').DataTable({
                 scrollX: true,
-                scrollY: true
+                scrollY: true,
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [1],
+                        "visible": true
+                    }
+                ]
             });
         });
 
@@ -127,4 +138,5 @@
     {% block details %}
     {% endblock %}
 </body>
+
 </html>

@@ -136,10 +136,13 @@ def get_detail():
     print('request for id ' + request.form['id'])
     task = todos.find({"_id": ObjectId(request.form['id'])})
     print('sending object ')
-    print(task[0])
+    entry = task[0]
+    entry['ID'] = str(task[0]['_id'])[0:5]
+    #entry.pop('_id', None)
+    print(entry)
     # serialize with json_util (which understands ObjectID), the de-serialize with default json
     # flask will then re-serialize with flask.jsonify (to add response header)
-    return json.loads(json_util.dumps(task[0]))
+    return json.loads(json_util.dumps(entry))
 
 
 @app.route("/search", methods=['GET'])  
