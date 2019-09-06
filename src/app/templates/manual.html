@@ -46,15 +46,15 @@
 
 {% block actionbar %}
 <div class="container-fluid m-3 p-3 border">
-  <div class="row">
-  		<div class="col-md-2">           
-		   <button type="button" class="btn btn-primary custom-button-width" id="new-button">New Item</button>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-primary custom-button-width" id="new-button">New Item</button>
         </div>
-        <div class="col-md-2 text-right">
-    		<button type="button" class="btn btn-warning custom-button-width .navbar-right" id="edit-button" disabled>Edit Item</button>
-			<button type="button" class="btn btn-danger custom-button-width .navbar-right" id="delete-button" data-toggle="modal" data-target="#confirm-delete" disabled>Delete Item</button>
-    	</div>
-  </div>
+        <div class="col-md-6 text-right">
+            <button type="button" class="btn btn-warning custom-button-width .navbar-right" id="edit-button" disabled>Edit Item</button>
+            <button type="button" class="btn btn-danger custom-button-width .navbar-right" id="delete-button" data-toggle="modal" data-target="#confirm-delete" disabled>Delete Item</button>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
@@ -78,41 +78,53 @@
             const entries = Object.entries(data);
             for (const [key, value] of entries) {
                 if (key != "_id") {
-                var div1 = document.createElement("div");
-                div1.className = "card border";
-                var div2 = document.createElement("div");
-                div2.className = "card-header";
-                div2.innerHTML = `${key}`;
-                var div3 = document.createElement("div");
-                div3.className = "card-body";
-                var div4 = document.createElement("div");
-                div4.className = "card-text";
-                div4.innerHTML = `${value}`;
+                    var div1 = document.createElement("div");
+                    div1.className = "card border";
+                    var div2 = document.createElement("div");
+                    div2.className = "card-header";
+                    div2.innerHTML = `${key}`;
+                    var div3 = document.createElement("div");
+                    div3.className = "card-body";
+                    var div4 = document.createElement("div");
+                    div4.className = "card-text";
+                    div4.innerHTML = `${value}`;
 
-                div3.appendChild(div4);
-                div1.appendChild(div2);
-                div1.appendChild(div3);
+                    div3.appendChild(div4);
+                    div1.appendChild(div2);
+                    div1.appendChild(div3);
 
-                id.appendChild(div1);
+                    id.appendChild(div1);
                 }
             }
         }).fail(function() {
             console.log(`no or invalid response`);
             var data = $(selection);
         });
-    
-        document.getElementById("delete-button").removeAttribute("disabled");
-        document.getElementById("edit-button").removeAttribute("disabled");
+
+        $("#delete-button").removeAttr("disabled");
+        $("#edit-button").removeAttr("disabled");
     });
 
 </script>
 
 <script>
-$(document).ready(function () {
-            $("#edit-button").click(function (){
-                $("#actionbar2").removeClass("d-none");
-            });
-});
+    $(document).ready(function() {
+        $("#edit-button").click(function() {
+            window.editMode = true;
+            $("#actionbar2").removeClass("d-none");
+            var cards = $("#card-columns").children;
+            console.log($("#card-columns"));
+            console.log(cards);
+            for (var i = 0; i < cards.length; i++) {
+                var cardBody = cards[i];
+                console.log(cardBody.innerHTML);
+                var cardText = cardBody.firstChild;
+                cardBody.innerHTML = "test";
+            }
+
+        });
+    });
+
 </script>
 <div class="card" id="details">
     <div class="card-header">Details:</div>
@@ -124,4 +136,3 @@ $(document).ready(function () {
     </div>
 </div>
 {% endblock %}
-
