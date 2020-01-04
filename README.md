@@ -1,4 +1,4 @@
-﻿##### ANOIA
+﻿# ANOIA
 
 ### Name:
 From Terry Pratchets “Discworld”’s pantheon of gods:
@@ -10,16 +10,16 @@ Intention of use:
 Inventory database for hackspaces or makerspaces.
 
 
-#### Technical details:
+## Technical details:
 
-## Intended technological stack:
+### Intended technological stack:
 python with flask
 gunicorn
 nginx
 
 html5 + css + js with bootstrap
 
-## Architecture:
+### Architecture:
 
 anaoja # main project folder
 \
@@ -52,7 +52,7 @@ anaoja # main project folder
      js     # javascript files
 
 
-## This is what has been done on the original dev system to create the environment:
+### This is what has been done on the original dev system to create the environment:
 
 sudo apt-get install docker-compose
 sudo usermod -aG docker $USER        # allows non-sudo docker commands
@@ -63,7 +63,7 @@ docker build –tag=first .
 docker run -p4000:80 first #demo run
 
 
-## How to start on the dev system:
+### How to start on the dev system:
 cd anoja/docker
 docker-compose up
 #in another terminal:
