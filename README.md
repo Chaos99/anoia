@@ -53,6 +53,7 @@ anaoja # main project folder
 ```
 
 ### This is what has been done on the original dev system to create the environment:
+*this might be slightly outdated*
 ```bash
 sudo apt-get install docker-compose
 sudo usermod -aG docker $USER        # allows non-sudo docker commands
@@ -70,3 +71,17 @@ docker-compose up
 #in another terminal:
 firefox "http://localhost:8080/list"
 ```
+alternatively:
+ * put the DB username and password into startlocal.template and rename to .sh
+ 
+```bash
+cd anoja/docker
+docker start docker_mongo_1
+cd ../src
+./startlocal.sh
+firefox "localhost:5000"
+```
+ * this uses flasks internal web server instead of nginx
+ * main advantage is, that it's faster to kill and restart flask+webserver than 
+ to ask docker-compose to do the same
+

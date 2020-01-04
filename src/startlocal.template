@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export DBUSERNAME=????
+export DBUSERPW=???
+export TEMPLATES_AUTO_RELOAD=true
+export DEBUG=true
+
+python3 run.py
+
